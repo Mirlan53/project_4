@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	{% autoescape off %}
+		<h5> Привет {{user.username}} </h5>
+		Пожалуйста, нажмите на ссылку ниже, чтобы подтвердить почту <br>
+		http://{{domain}}{% url 'account_activation' uid64=uid token=token %}
+	{% endautoescape %}
+</body>
+</html>
