@@ -20,3 +20,11 @@ class ProductDestroy(generics.DestroyAPIView):
 	serializer_class = ProductSerializer
 	lookup_url_kwarg = 'product_id'
 
+
+def product_list_with_categories(request):
+	products = Product.objects.select_related('category').all()
+	context = {
+		'products': products
+	}
+
+	return render(request, 'gadgets/product_list_with_categories.html', context)

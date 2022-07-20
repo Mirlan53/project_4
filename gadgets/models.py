@@ -8,6 +8,13 @@ class Manufacturer(models.Model):
 	def __str__(self):
 		return self.name
 
+
+class Tag(models.Model):
+	name = models.CharField(max_length=20)
+	
+	def __str__(self):
+		return self.name
+
 class ProductCategory(models.Model):
 	name = models.CharField(max_length = 150)
 	description = models.TextField()
@@ -22,7 +29,7 @@ class Product(models.Model):
 	created_at = models.DateField() 
 	manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
 	category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
-
+	tags = models.ManyToManyField(Tag, verbose_name='Продукты', related_name='tags')
 
 	def __str__(self):
 		return f"{self.name} {self.price} {self.created_at}"
