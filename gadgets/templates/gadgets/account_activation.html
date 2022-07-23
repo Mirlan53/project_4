@@ -1,1 +1,5 @@
-123
+{% autoescape off %}
+	<h5> Привет {{user.username}} </h5>
+	Пожалуйста, нажмите на ссылку ниже, чтобы подтвердить почту <br>
+	http://{{domain}}{% url 'account_activation' uidb64=uid token=token %}
+{% endautoescape %}

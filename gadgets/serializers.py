@@ -1,26 +1,29 @@
+from unicodedata import category
 from rest_framework import serializers
-from .models import Product, ProductCategory, Tag
-
+from .models import Product, Tag, ProductCategory
+from importlib.resources import read_binary
 
 class TagSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = Tag
-		fields = ('id', 'name')
+    class Meta:
+        model = Tag
+        fields = ('name', 'id',)
+
+class ProductWritableSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        # fields = '__all__'
+        exclude = ('tags',)
+
 
 
 class ProductSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = Product
-		fields = ('id', 'name', 'description', 'price')
+    tags = TagSerializer(many=True, read_only=True)
+    class Meta:
+        model = Product
+        fields = ('id', 'name', 'description', 'price','tags')
 
+class ProductCategorySerializers(serializers.ModelSerializer):
 
-class ProductWritableSreailizer(serializers.ModelSerializer):
-	class Meta:
-		model = Product 
-		fields = '__all__'
-
-
-class ProductCategorySerializer(serializers.ModelSerializer):
-	class Meta:
-		model = ProductCategory
-		fields = '__all__'
+    class Meta:
+        model = ProductCategory
+        fields = '__all__'

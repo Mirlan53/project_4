@@ -16,10 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings 
+from gadgets.views import account_register, account_activation
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('gadgets.urls')) 
+    path('api/', include('gadgets.urls')),
+    path('account_register', account_register, name='account_register'),
+    path('account_activation/<uidb64>/<token>', account_activation, name='account_activation'),
 ]
 
 
